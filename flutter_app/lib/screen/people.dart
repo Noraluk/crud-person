@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/person.dart';
+import 'package:flutter_app/services/geolocation.dart';
+import 'package:geolocator/geolocator.dart';
 
 class PeopleWidget extends StatefulWidget {
   const PeopleWidget({super.key});
@@ -12,6 +14,7 @@ class _PeopleWidgetState extends State<PeopleWidget> {
   final _scrollController = ScrollController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
+  final GeoLocationService _geoLocationService = GeoLocationService();
 
   final List<PersonModel> _items = [];
   final List<PersonModel> _displayItems = [];
@@ -80,12 +83,16 @@ class _PeopleWidgetState extends State<PeopleWidget> {
     }
   }
 
-  void _createItem() async {
+  Future<void> _createItem() async {
+    Position position = await _geoLocationService.getCurrentPosition();
+
     setState(() {
       _items.add(
         PersonModel(
           firstName: _firstNameController.text,
           lastName: _lastNameController.text,
+          latitude: position.latitude,
+          longtitude: position.longitude,
         ),
       );
       _hasNext = true;
@@ -94,10 +101,12 @@ class _PeopleWidgetState extends State<PeopleWidget> {
     _checkIfMoreItemsNeeded();
   }
 
-  void _updateItem(int index) async {
+  Future<void> _updateItem(int index) async {
     PersonModel person = PersonModel(
       firstName: _firstNameController.text,
       lastName: _lastNameController.text,
+      latitude: _displayItems[index].latitude,
+      longtitude: _displayItems[index].longtitude,
     );
 
     setState(() {
@@ -114,7 +123,7 @@ class _PeopleWidgetState extends State<PeopleWidget> {
     });
   }
 
-  void _showInputDialog(void Function() submitFn) {
+  void _showInputDialog(Future<void> Function() submitFn) {
     showDialog(
         context: context,
         builder: (context) {
@@ -146,8 +155,8 @@ class _PeopleWidgetState extends State<PeopleWidget> {
               ),
               TextButton(
                 child: const Text('OK'),
-                onPressed: () {
-                  submitFn();
+                onPressed: () async {
+                  await submitFn();
                   _firstNameController.clear();
                   _lastNameController.clear();
                   Navigator.of(context).pop();
@@ -185,7 +194,7 @@ class _PeopleWidgetState extends State<PeopleWidget> {
                 onTap: () => _showInputDialog(() => _updateItem(index)),
                 title: Center(
                   child: Text(
-                    '${_displayItems[index].firstName} ${_displayItems[index].lastName}',
+                    '${_displayItems[index].firstName} ${_displayItems[index].lastName} ${_displayItems[index].latitude} ${_displayItems[index].longtitude}',
                   ),
                 ),
               );
