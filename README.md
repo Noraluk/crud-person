@@ -1,6 +1,6 @@
 # crud-person
 
-crud-person is a minimum features that can insert, update, read, delete person information. Moreover, it includes to get a user's location when inserting a person data, but user needs to allow google chrome to access a device's location. This repository has 3 applications with different frameworks to support the requirements
+crud-person is a minimum features that can insert, update, read, delete person information. Moreover, it includes to get a user's location when inserting a person data, but user needs to allow the device to access its location. This repository has 3 applications with different frameworks to support the requirements
 
 ## Flutter
 
