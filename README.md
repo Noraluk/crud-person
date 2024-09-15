@@ -105,3 +105,39 @@ user clicks a red button to delete a person.
 ![Before delete people](./images/devexpress/before-delete.png)
 
 ![After delete people](./images/devexpress/after-delete.png)
+
+## Pros & Cons
+
+### Flutter
+
+- Pros
+  1. Cross-platform development
+  2. Fast performance
+  3. Large community and growing ecosystem
+- Cons
+  1. Young framework because it was established from 2017
+  2. Limited support for native features
+
+### Bubble.io
+
+- Pros
+  1. No-code platform
+  2. Visual design tools
+- Cons
+  1. Scalability issues
+  2. Limited customization
+  3. Low performance
+  4. It is not flexibility because it has in its ecosystem.
+  5. Small community has an effect on third party resoruces and tutorial
+
+### Devexpress
+
+- Pros
+  1. Comprehensive component library
+  2. Powerful reporting tools
+- Cons
+  1. Lagacy language
+  2. Small community to drive this framework because it is for enterprise use
+  3. Steep learning curve
+  4. License cost
+  5. Limited to specific platforms
